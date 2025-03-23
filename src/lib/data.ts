@@ -12,16 +12,16 @@ interface Props {
 export const dilemmas: Props[] = [
   {
     "orientation": "even",
-    "title": "Venta de datos a terceros",
-    "question": "¿Es ético que las organizaciones vendan o compartan datos personales con terceros?",
-    "conclusions": "En el mundo tecnológico actual, muchas aplicaciones 'gratuitas' monetizan recopilando y vendiendo información personal sin el consentimiento informado de los usuarios. Aunque existen regulaciones como el GDPR en la Unión Europea y la Ley Federal de Protección de Datos Personales en México que imponen sanciones severas por incumplimiento, en Honduras no contamos con una ley específica que prevenga la venta de datos a terceros. Sin embargo, la Constitución de la República, en su Artículo 182, reconoce el derecho de los ciudadanos a conocer qué información se está recopilando y su uso. Además, la Ley de Transparencia y Acceso a la Información Pública limita el acceso a datos personales sensibles guardados por el estado.",
+    "title": "Seguridad y posibles filtraciones",
+    "question": "¿Qué tan responsables son las organizaciones de proteger los datos que recopilan?",
+    "conclusions": "En conclusión, la seguridad de los datos es un desafío crucial en la era digital, y su descuido puede traer graves consecuencias para los usuarios. Las filtraciones y hackeos exponen información personal, poniendo en riesgo la privacidad, la identidad y la estabilidad financiera de millones de personas. A pesar de la creciente cantidad de datos que las empresas recopilan, muchas no invierten lo suficiente en protegerlos, lo que genera un problema ético sobre su responsabilidad en la seguridad de la información. Los usuarios confían en que sus datos estarán protegidos, pero cuando una empresa no implementa medidas de seguridad adecuadas, esa confianza se rompe. Casos como los de Facebook o Equifax han demostrado que las filtraciones pueden afectar a personas en todo el mundo, causando daños que van desde el robo de identidad hasta el fraude financiero.",
     "options": [
-      "Implementar regulaciones específicas que prohíban la venta de datos sin consentimiento",
-      "Fomentar la transparencia en las políticas de privacidad de las empresas",
-      "Educar a los usuarios sobre sus derechos respecto a sus datos personales"
+      "Implementar medidas de seguridad proactivas como cifrado de datos, autenticación multifactor y auditorías regulares para proteger la información sensible.",
+      "Fomentar una cultura organizacional de responsabilidad, asegurando que todos los empleados comprendan la importancia de proteger los datos y sigan prácticas de seguridad rigurosas.",
+      "Establecer un marco legal claro y regulado para la protección de datos, cumpliendo con normativas locales e internacionales que garanticen la privacidad de los usuarios."
     ],
-    "imageUrl": "https://static.vecteezy.com/system/resources/previews/007/079/927/non_2x/personal-data-sell-to-third-party-which-is-against-to-privacy-protection-law-vector.jpg",
-    "imageAlt": "Ilustración sobre la venta de datos personales"
+    "imageUrl": "https://img.freepik.com/vector-gratis/robar-concepto-ciberataque-datos_23-2148534942.jpg",
+    "imageAlt": "Ilustración sobre la seguridad y posibles filtraciones"
   },
   {
     "orientation": "odd",

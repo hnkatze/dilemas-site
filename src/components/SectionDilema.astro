@@ -9,6 +9,7 @@ interface Props {
   options: string[];
   imageUrl: string;
   imageAlt: string;
+  index?: number; // Add index prop for navigation
 }
 
 const { 
@@ -18,13 +19,15 @@ const {
   conclusions = "Reflexiones y conclusiones sobre el dilema...",
   options = ["Opción 1", "Opción 2", "Opción 3"],
   imageUrl = "https://img.freepik.com/vector-premium/ilustracion-dilema-etico_23-2148731107.jpg",
-  imageAlt = "Imagen del dilema ético"
+  imageAlt = "Imagen del dilema ético",
+  index = 0 // Default index
 } = Astro.props;
 
 const layoutClass = orientation === "even" ? "lg:flex-row-reverse" : "lg:flex-row";
+const dilemaId = `dilema-${index}`; // Create unique ID based on index
 ---
 
-<article class={`flex flex-col ${layoutClass} bg-white rounded-lg  overflow-hidden hover:shadow-lg transition-shadow duration-300 mb-8`}>
+<article id={dilemaId} class={`flex flex-col ${layoutClass} bg-white rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 mb-8 scroll-mt-20`}>
   <!-- Contenedor de la imagen -->
   <div class="w-full lg:w-1/2 h-full">
     <img 
@@ -62,3 +65,4 @@ const layoutClass = orientation === "even" ? "lg:flex-row-reverse" : "lg:flex-ro
     </div>
   </div>
 </article>
+

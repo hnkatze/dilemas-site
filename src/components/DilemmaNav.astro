@@ -1,0 +1,324 @@
+---
+// DilemasNav.astro
+import { dilemmas } from "../lib/data";
+import { Menu, X } from "astro-feather-icons";
+---
+
+<div class="nav-container">
+  <!-- Toggle Button -->
+  <button id="nav-toggle" class="nav-toggle" aria-label="Toggle Navigation">
+    <span class="menu-icon"><Menu /></span>
+    <span class="close-icon hidden"><X /></span>
+  </button>
+
+  <!-- Navigation Panel -->
+  <nav id="nav-panel" class="nav-panel">
+    <div class="panel-header">
+      <h3 class="text-lg font-bold">Dilemas Éticos</h3>
+    </div>
+
+    <ul class="panel-content">
+      {
+        dilemmas.map((dilema, index) => (
+          <li>
+            <a href={`#dilema-${index}`} class="nav-link">
+              <span class="nav-number">{index + 1}</span>
+              <span class="nav-title">
+                {dilema.title || `Dilema ${index + 1}`}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="panel-footer">
+      <div class="flex flex-col ">
+        <h1 class="font-medium text-2xl">Grupo #3 </h1>
+        <p class="font-serif">Carlos Pinto-62041024</p>
+        <p class="font-serif">Hector Henriquez-41611213</p>
+        <p class="font-serif">Jeymi Turcios-62411348</p>
+        <p class="font-serif">Kenneth Yanes-62411202</p>
+      </div>
+    </div>
+  </nav>
+</div>
+
+<style>
+  /* Container for the navigation system */
+  .nav-container {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  /* Toggle button */
+  .nav-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 8px 0 0 8px;
+    cursor: pointer;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .nav-toggle:hover {
+    background-color: #2563eb;
+  }
+
+  /* Navigation panel */
+  .nav-panel {
+    width: 0;
+    height: 80vh;
+    max-height: 600px;
+    background-color: white;
+    border-radius: 12px 0 0 12px;
+    box-shadow: -2px 0 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: width 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .nav-panel.open {
+    width: 300px;
+  }
+
+  /* Panel sections */
+  .panel-header {
+    padding: 16px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .panel-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 0;
+  }
+
+  .panel-footer {
+    padding: 12px 16px;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  /* Navigation links */
+  .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    color: #374151;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .nav-link:hover {
+    background-color: #f3f4f6;
+  }
+
+  .nav-link.active {
+    background-color: #eff6ff;
+    color: #3b82f6;
+    border-left: 3px solid #3b82f6;
+  }
+
+  .nav-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: #e5e7eb;
+    color: #4b5563;
+    border-radius: 50%;
+    margin-right: 12px;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+
+  .nav-link.active .nav-number {
+    background-color: #3b82f6;
+    color: white;
+  }
+
+  .nav-title {
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Keyboard shortcut styling */
+  .key {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 4px;
+    background-color: #f3f4f6;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .panel-content::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .panel-content::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .panel-content::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+    border-radius: 4px;
+  }
+
+  /* Icon toggle */
+  .hidden {
+    display: none;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 640px) {
+    .nav-panel.open {
+      width: 260px;
+    }
+  }
+</style>
+
+<script>
+  // DOM Elements
+  const navToggle = document.getElementById("nav-toggle");
+  const navPanel = document.getElementById("nav-panel");
+  const menuIcon = document.querySelector(".menu-icon");
+  const closeIcon = document.querySelector(".close-icon");
+  const navLinks = document.querySelectorAll(".nav-link");
+  const sections = document.querySelectorAll('[id^="dilema-"]');
+
+  // Toggle navigation panel
+  function toggleNav() {
+    navPanel?.classList.toggle("open");
+    menuIcon?.classList.toggle("hidden");
+    closeIcon?.classList.toggle("hidden");
+
+    // Save state to localStorage
+    const isOpen = navPanel?.classList.contains("open");
+    localStorage.setItem("navPanelOpen", isOpen ? "true" : "false");
+  }
+
+  // Initialize panel state from localStorage
+  function initNavState() {
+    const savedState = localStorage.getItem("navPanelOpen");
+    if (savedState === "true") {
+      navPanel?.classList.add("open");
+      menuIcon?.classList.add("hidden");
+      closeIcon?.classList.remove("hidden");
+    }
+  }
+
+  // Highlight the active section based on scroll position
+  function updateActiveLink() {
+    const scrollPosition = window.scrollY;
+
+    sections.forEach((section, index) => {
+      const sectionTop = (section as HTMLElement).offsetTop;
+      const sectionHeight = (section as HTMLElement).offsetHeight;
+
+      if (
+        scrollPosition >= sectionTop - 100 &&
+        scrollPosition < sectionTop + sectionHeight - 100
+      ) {
+        navLinks.forEach((link) => link.classList.remove("active"));
+        navLinks[index]?.classList.add("active");
+
+        // Ensure active link is visible in the panel
+        if (navPanel?.classList.contains("open")) {
+          (navLinks[index] as HTMLElement).scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+          });
+        }
+      }
+    });
+  }
+
+  // Add keyboard navigation
+  function handleKeyNavigation(e: KeyboardEvent) {
+    const activeIndex = Array.from(navLinks).findIndex((link) =>
+      link.classList.contains("active")
+    );
+
+    if (e.key === "ArrowRight" && activeIndex < navLinks.length - 1) {
+      (navLinks[activeIndex + 1] as HTMLAnchorElement).click();
+    } else if (e.key === "ArrowLeft" && activeIndex > 0) {
+      (navLinks[activeIndex - 1] as HTMLAnchorElement).click();
+    }
+  }
+
+  // Add smooth scrolling
+  function setupSmoothScrolling() {
+    navLinks.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute("href");
+        const targetElement = targetId
+          ? document.querySelector(targetId)
+          : null;
+
+        if (targetElement) {
+          window.scrollTo({
+            top: (targetElement as HTMLElement).offsetTop - 20,
+            behavior: "smooth",
+          });
+
+          // Update URL without page reload
+          history.pushState(null, "", targetId);
+
+          // Update active state
+          navLinks.forEach((l) => l.classList.remove("active"));
+          link.classList.add("active");
+
+          // On mobile, close the panel after selection
+          if (window.innerWidth < 768) {
+            setTimeout(() => {
+              navPanel?.classList.remove("open");
+              menuIcon?.classList.remove("hidden");
+              closeIcon?.classList.add("hidden");
+            }, 300);
+          }
+        }
+      });
+    });
+  }
+
+  // Event listeners
+  navToggle?.addEventListener("click", toggleNav);
+  document.addEventListener("keydown", handleKeyNavigation);
+  window.addEventListener("scroll", updateActiveLink);
+  window.addEventListener("resize", () => {
+    // Close panel on small screens when resizing
+    if (window.innerWidth < 640 && navPanel?.classList.contains("open")) {
+      toggleNav();
+    }
+  });
+
+  // Initialize
+  document.addEventListener("DOMContentLoaded", () => {
+    initNavState();
+    setupSmoothScrolling();
+    updateActiveLink();
+  });
+</script>
